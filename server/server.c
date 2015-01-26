@@ -151,7 +151,7 @@ void clear_fds(client_store_t *cs, fd_set *fds){
 void cs_init(client_store_t * cstore){
     cstore->size = 10;
     cstore->num_clients = 0;
-    cstore->clients = calloc(10, sizeof(chat_user_t));
+    cstore->clients = calloc(10, sizeof(chat_user_t)); /*calloc分配后会自动初始化，而malloc则不会*/
 }
 
 int add_client(client_store_t * cs, int sock, const char *username){    

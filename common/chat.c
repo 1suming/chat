@@ -67,7 +67,7 @@ struct chat_packet * cunpack(const char *buf, size_t len){
     struct chat_packet *p = malloc(sizeof(struct chat_packet));
     p->opcode = ntohs(*(uint16_t *) buf);
     size_t uname_len = strlen(buf+2) + 1;
-    p->username = calloc(sizeof(char), uname_len);
+    p->username = calloc(uname_len,sizeof(char));
     strcpy(p->username, buf+2);
     switch(p->opcode){
         case OP_HELLO:
@@ -99,7 +99,7 @@ struct chat_packet * cunpack(const char *buf, size_t len){
                 p->body.error.errorcode = ntohs(*(uint16_t*)( buf + 2 + uname_len));
 
                 size_t msg_len = strlen(buf + 4 + uname_len) + 1;
-                p->body.error.message = calloc(msg_len, 0);
+                p->body.error.message = calloc(msg_len, sizeof(char));
                 strcpy(p->body.error.message, buf + 4 + uname_len);
 
             }
